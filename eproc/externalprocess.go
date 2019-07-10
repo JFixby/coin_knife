@@ -2,7 +2,7 @@ package eproc
 
 import (
 	"fmt"
-	"github.com/picfight/coin_knife/lang"
+	"github.com/jfixby/pin/lang"
 	"os"
 	"os/exec"
 	"runtime"

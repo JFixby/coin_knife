@@ -3,8 +3,8 @@ package injector
 import (
 	"github.com/jfixby/pin"
 	"github.com/jfixby/pin/fileops"
-	"github.com/picfight/coin_knife/lang"
-	"github.com/picfight/coin_knife/str"
+	"github.com/jfixby/pin/lang"
+	"github.com/jfixby/pin/str"
 	"path/filepath"
 	"strings"
 )

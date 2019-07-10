@@ -3,7 +3,7 @@ package projectops
 import (
 	"github.com/jfixby/pin"
 	"github.com/jfixby/pin/fileops"
-	"github.com/picfight/coin_knife/lang"
+	"github.com/jfixby/pin/lang"
 	"io/ioutil"
 	"os"
 	"path/filepath"
