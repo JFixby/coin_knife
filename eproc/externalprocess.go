@@ -2,11 +2,11 @@ package eproc
 
 import (
 	"fmt"
+	"github.com/picfight/coin_knife/lang"
 	"os"
 	"os/exec"
 	"runtime"
 	"strings"
-	"github.com/picfight/pfcd_builder/lang"
 	"github.com/jfixby/pin"
 )
 

@@ -1,8 +1,8 @@
 package str
 
 import (
+	"github.com/picfight/coin_knife/lang"
 	"strings"
-	"github.com/picfight/pfcd_builder/lang"
 )
 
 func PreFillString(size int, char string) string {
