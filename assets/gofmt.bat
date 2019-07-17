@@ -1,0 +1,3 @@
+cd #TARGET_FOLDER#
+go fmt ./...
+

@@ -4,10 +4,44 @@ import (
 	"github.com/jfixby/pin"
 	"github.com/jfixby/pin/fileops"
 	"github.com/jfixby/pin/lang"
+	"github.com/picfight/coin_knife/eproc"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 )
+
+func GoFmt(targetProject string) {
+	target := targetProject
+	batName := "gofmt.bat"
+	batTemplate := filepath.Join("assets", batName)
+	batData := fileops.ReadFileToString(batTemplate)
+	batData = strings.Replace(batData, "#TARGET_FOLDER#", target, -1)
+	batFile := filepath.Join(batName)
+	fileops.WriteStringToFile(batFile, batData)
+
+	ext := &eproc.ExternalProcess{
+		CommandName: batFile,
+	}
+	ext.Launch(true)
+	ext.Wait()
+}
+
+func GoBuild(targetProject string) {
+	target := targetProject
+	batName := "gobuild.bat"
+	batTemplate := filepath.Join("assets", batName)
+	batData := fileops.ReadFileToString(batTemplate)
+	batData = strings.Replace(batData, "#TARGET_FOLDER#", target, -1)
+	batFile := filepath.Join(batName)
+	fileops.WriteStringToFile(batFile, batData)
+
+	ext := &eproc.ExternalProcess{
+		CommandName: batFile,
+	}
+	ext.Launch(true)
+	ext.Wait()
+}
 
 func ClearProject(target string) {
 	pin.D("clear", target)
@@ -31,6 +65,11 @@ func ClearProject(target string) {
 	}
 	pin.D("")
 
+}
+
+func AppendGitIgnore(targetProject string) {
+	file := filepath.Join(targetProject, ".gitignore")
+	fileops.AppendStringToFile(file, "\\.idea/")
 }
 
 func ListInputProjectFiles(target string) []string {

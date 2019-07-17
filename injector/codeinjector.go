@@ -4,7 +4,6 @@ import (
 	"github.com/jfixby/pin"
 	"github.com/jfixby/pin/fileops"
 	"github.com/jfixby/pin/lang"
-	"github.com/jfixby/pin/str"
 	"path/filepath"
 	"strings"
 )
@@ -23,7 +22,8 @@ var GoFile = func(file string) bool {
 }
 
 var FoldersOnlyAndIgnoreUnderscore = func(file string) bool {
-	return IgnoreUnderscore(file) && fileops.FoldersOnly(file) && str.EndsWith(file, ".go")
+	return IgnoreUnderscore(file) && fileops.FoldersOnly(file)
+	//&& str.EndsWith(file, ".go")
 }
 
 func PerformInjections(outputPath string, injections string) {
