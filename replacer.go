@@ -9,8 +9,15 @@ import (
 	"strings"
 )
 
-func TransferFiles(detector FileToProcessDetector, fileNameProc StringProcessor, DoNotProcessFiles bool, fileContentProc StringProcessor, from string, to string) {
-	inputFiles := ListInputProjectFiles(from)
+func TransferFiles(set *Settings) {
+	detector := set.IsFileProcessable
+	fileNameProc := set.FileNameProcessor
+	DoNotProcessFiles := set.DoNotProcessAnyFiles
+	fileContentProc := set.FileContentProcessor
+	from := set.PathToInputRepo
+	to := set.PathToOutputRepo
+
+	inputFiles := ListInputProjectFiles(set.PathToInputRepo, set)
 	for _, f := range inputFiles {
 		postfix := strings.TrimPrefix(f, from)
 		postfix = fileNameProc(postfix)

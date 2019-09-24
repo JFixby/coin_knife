@@ -8,7 +8,9 @@ type Settings struct {
 	PathToInputRepo  string
 	PathToOutputRepo string
 
-	DoNotProcessAnyFiles bool
+	DoNotProcessAnyFiles   bool
+	DoNotProcessSubfolders bool
+
 	FileContentProcessor StringProcessor
 	FileNameProcessor    StringProcessor
 	IsFileProcessable    FileToProcessDetector
@@ -25,12 +27,7 @@ func Build(set *Settings) {
 	ClearProject(set.PathToOutputRepo, set.IgnoredFiles)
 
 	TransferFiles(
-		set.IsFileProcessable,
-		set.FileNameProcessor,
-		set.DoNotProcessAnyFiles,
-		set.FileContentProcessor,
-		set.PathToInputRepo,
-		set.PathToOutputRepo,
+		set,
 	)
 
 	PerformInjections(set.PathToOutputRepo, set.InjectorsPath)

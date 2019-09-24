@@ -68,7 +68,7 @@ func AppendGitIgnore(targetProject string) {
 	fileops.AppendStringToFile(file, "\\.idea/")
 }
 
-func ListInputProjectFiles(target string) []string {
+func ListInputProjectFiles(target string, set *Settings) []string {
 	if fileops.IsFile(target) {
 		lang.ReportErr("This is not a folder: %v", target)
 	}
@@ -80,15 +80,11 @@ func ListInputProjectFiles(target string) []string {
 		fileName := f.Name()
 		filePath := filepath.Join(target, fileName)
 
-		if fileName == ".git" {
+		if set.IgnoredFiles[fileName] {
 			continue
 		}
-		if fileName == "vendor" {
-			continue
-		}
-
-		if fileops.IsFolder(filePath) {
-			children := ListInputProjectFiles(filePath)
+		if fileops.IsFolder(filePath) && !set.DoNotProcessSubfolders {
+			children := ListInputProjectFiles(filePath, set)
 			result = append(result, children...)
 			continue
 		}
