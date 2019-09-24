@@ -1,17 +1,16 @@
-package fileproc
+package coinknife
 
 import (
 	"github.com/jfixby/pin"
 	"github.com/jfixby/pin/fileops"
 	"github.com/jfixby/pin/lang"
-	"github.com/picfight/coin_knife/projectops"
 	"os"
 	"path/filepath"
 	"strings"
 )
 
 func TransferFiles(detector FileToProcessDetector, fileNameProc StringProcessor, DoNotProcessFiles bool, fileContentProc StringProcessor, from string, to string) {
-	inputFiles := projectops.ListInputProjectFiles(from)
+	inputFiles := ListInputProjectFiles(from)
 	for _, f := range inputFiles {
 		postfix := strings.TrimPrefix(f, from)
 		postfix = fileNameProc(postfix)

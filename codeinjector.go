@@ -1,4 +1,4 @@
-package injector
+package coinknife
 
 import (
 	"github.com/jfixby/pin"

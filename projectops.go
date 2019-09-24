@@ -1,10 +1,10 @@
-package projectops
+package coinknife
 
 import (
 	"github.com/jfixby/pin"
+	"github.com/jfixby/pin/commandline"
 	"github.com/jfixby/pin/fileops"
 	"github.com/jfixby/pin/lang"
-	"github.com/picfight/coin_knife/eproc"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -20,7 +20,7 @@ func GoFmt(targetProject string) {
 	batFile := filepath.Join(batName)
 	fileops.WriteStringToFile(batFile, batData)
 
-	ext := &eproc.ExternalProcess{
+	ext := &commandline.ExternalProcess{
 		CommandName: batFile,
 	}
 	ext.Launch(true)
@@ -36,7 +36,7 @@ func GoBuild(targetProject string) {
 	batFile := filepath.Join(batName)
 	fileops.WriteStringToFile(batFile, batData)
 
-	ext := &eproc.ExternalProcess{
+	ext := &commandline.ExternalProcess{
 		CommandName: batFile,
 	}
 	ext.Launch(true)

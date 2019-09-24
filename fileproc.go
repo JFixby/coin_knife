@@ -1,4 +1,4 @@
-package fileproc
+package coinknife
 
 type StringProcessor func(input string) string
 
