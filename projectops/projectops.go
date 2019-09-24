@@ -43,7 +43,7 @@ func GoBuild(targetProject string) {
 	ext.Wait()
 }
 
-func ClearProject(target string) {
+func ClearProject(target string, ignore map[string]bool) {
 	pin.D("clear", target)
 	files, err := ioutil.ReadDir(target)
 	lang.CheckErr(err)
@@ -51,11 +51,7 @@ func ClearProject(target string) {
 	for _, f := range files {
 		fileName := f.Name()
 		filePath := filepath.Join(target, fileName)
-		if fileName == ".git" {
-			pin.D("  skip", filePath)
-			continue
-		}
-		if fileName == "vendor" {
+		if ignore[fileName] {
 			pin.D("  skip", filePath)
 			continue
 		}
