@@ -2,6 +2,7 @@ package coinknife
 
 import (
 	"github.com/jfixby/pin"
+	"github.com/jfixby/pin/fileops"
 )
 
 type Settings struct {
@@ -15,8 +16,10 @@ type Settings struct {
 	FileNameProcessor    StringProcessor
 	IsFileProcessable    FileToProcessDetector
 
-	IgnoredFiles  map[string]bool
-	InjectorsPath string
+	IgnoredFiles    map[string]bool
+	InjectorsPath   string
+	AppendGitIgnore func(targetProject string)
+	GoFmt           func(targetProject string)
 }
 
 func Build(set *Settings) {
@@ -24,8 +27,9 @@ func Build(set *Settings) {
 	pin.D("Output", set.PathToOutputRepo)
 	pin.D("")
 
-	ClearProject(set.PathToOutputRepo, set.IgnoredFiles)
-
+	if fileops.FileExists(set.PathToOutputRepo) {
+		ClearProject(set.PathToOutputRepo, set.IgnoredFiles)
+	}
 	TransferFiles(
 		set,
 	)
@@ -34,9 +38,13 @@ func Build(set *Settings) {
 
 	//FixSecp256k1Checksum(set.PathToOutputRepo)
 
-	AppendGitIgnore(set.PathToOutputRepo)
+	if set.AppendGitIgnore != nil {
+		set.AppendGitIgnore(set.PathToOutputRepo)
+	}
 
-	GoFmt(set.PathToOutputRepo)
+	if set.GoFmt != nil {
+		set.GoFmt(set.PathToOutputRepo)
+	}
 
 	pin.D("Done!")
 }
